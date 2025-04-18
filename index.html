@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Virtual Glass Try-On</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    #top-edit-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 1000;
+      display: none; /* Hidden by default */
+    }
+  </style>
+</head>
+<body>
+  <!-- Top-right Edit Button -->
+  <button id="top-edit-btn" onclick="toggleEditMode()">✏️ Edit</button>
+
+  <h1>🕶️ Virtual Glass Try-On</h1>
+
+  <label class="upload-label">
+    <input type="file" id="upload" hidden />
+    <span>📁 Upload Image</span>
+  </label>
+
+  <div class="canvas-wrapper">
+    <canvas id="canvas"></canvas>
+  </div>
+
+  <div class="buttons">
+    <button onclick="changeGlasses('rectangle.png')">Rectangle</button>
+    <button onclick="changeGlasses('rectangle2.png')">Rectangle 2</button>
+    <button onclick="changeGlasses('retangle1.png')">Retangle 1</button>
+    <button onclick="changeGlasses('round_glasses.png')">Round</button>
+    
+  </div>
+
+  <div class="bottom-buttons">
+    <button onclick="downloadImage()">⬇️ Download Image</button>
+  </div>
+
+  <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+  <script defer src="script.js"></script>
+  <script>
+    // Show edit button after image is uploaded
+    document.getElementById("upload").addEventListener("change", function () {
+      document.getElementById("top-edit-btn").style.display = "inline-block";
+      document.getElementById("edit-btn").style.display = "inline-block"; // If you want both visible
+    });
+  </script>
+</body>
+</html>
