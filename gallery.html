@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Virtual Try-On - Gallery</title>
+  <link rel="stylesheet" href="assets/css/styleHome.css" />
+  <style>
+    /* Override global flex for main, make it normal for gallery */
+    main {
+      display: block;
+      padding: 40px 30px;
+      margin-left: 220px;
+    }
+
+    .main-content {
+      padding: 2rem;
+      color: white;
+    }
+
+    .gallery-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: flex-start;
+    }
+
+    .gallery-img-wrapper {
+      position: relative;
+    }
+
+    .gallery-img {
+      width: 250px;
+      border-radius: 12px;  /* Modern rounded corners */
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);  /* Subtle shadow */
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    }
+
+    .delete-btn {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background-color: rgba(255, 0, 0, 0.8);
+      border: none;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 15px;
+      height: 15px;
+      font-size: 14px;
+     ;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      transition: none;
+    }
+
+    /* Stop morph effect from global button styling */
+    .delete-btn::before,
+    .delete-btn::after {
+      display: none !important;
+    }
+
+    #ig {
+      color: black;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Sidebar Navigation -->
+  <div class="sidebar">
+    <div class="logo">Virtual Try-On</div>
+    <div class="nav-links">
+      <a href="home.html" class="nav-home">🏠 Home</a>
+      <a href="index.html" class="nav-tryon">🕶️ Try On</a>
+      <a href="gallery.html" class="nav-gallery">🖼️ Gallery</a>
+    </div>
+    <div class="user-section hidden" id="userSection">
+      <div class="username" id="displayName">Welcome, User</div>
+      <button class="logout-button" id="logoutBtn">Logout</button>
+    </div>
+  </div>
+
+  <!-- Main Gallery Content -->
+  <main>
+    <div class="main-content">
+      <h2 id="ig">Your Saved Images</h2>
+      <div id="galleryImages" class="gallery-container"></div>
+    </div>
+  </main>
+
+  <script>
+    // Show username and logout if logged in
+    const username = localStorage.getItem("loggedInUser");
+    if (username) {
+      document.getElementById("displayName").textContent = "Welcome, " + username;
+      document.getElementById("userSection").classList.remove("hidden");
+    }
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      localStorage.removeItem("loggedInUser");
+      window.location.href = "home.html";
+    });
+
+    // Fetch and display saved images
+    fetch('gallery/getImages.php')
+      .then(response => response.json())
+      .then(images => {
+        const container = document.getElementById('galleryImages');
+        container.innerHTML = '';
+
+        images.forEach(src => {
+          const wrapper = document.createElement('div');
+          wrapper.className = 'gallery-img-wrapper';
+
+          const img = document.createElement('img');
+          img.src = src;
+          img.className = 'gallery-img';
+
+          const deleteBtn = document.createElement('button');
+          deleteBtn.className = 'delete-btn';
+          deleteBtn.innerHTML = '×';
+
+          deleteBtn.onclick = () => {
+            if (confirm("Are you sure you want to delete this image?")) {
+              fetch('gallery/deleteImage.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ filename: src.split('/').pop() }),
+              })
+              .then(res => res.json())
+              .then(result => {
+                if (result.success) {
+                  wrapper.remove();
+                } else {
+                  alert(result.message || 'Failed to delete image.');
+                }
+              });
+            }
+          };
+
+          wrapper.appendChild(img);
+          wrapper.appendChild(deleteBtn);
+          container.appendChild(wrapper);
+        });
+      })
+      .catch(error => {
+        console.error('Error loading images:', error);
+      });
+  </script>
+
+</body>
+</html>

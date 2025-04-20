@@ -5,52 +5,88 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Virtual Glass Try-On</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    #top-edit-btn {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-      display: none; /* Hidden by default */
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
+
 <body>
-  <!-- Top-right Edit Button -->
-  <button id="top-edit-btn" onclick="toggleEditMode()">✏️ Edit</button>
-
-  <h1>🕶️ Virtual Glass Try-On</h1>
-
-  <label class="upload-label">
-    <input type="file" id="upload" hidden />
-    <span>📁 Upload Image</span>
-  </label>
-
-  <div class="canvas-wrapper">
-    <canvas id="canvas"></canvas>
+  <div class="sidebar">
+    <div class="logo">Virtual Try-On</div>
+    <div class="nav-links">
+      <a href="home.html" class="nav-home">🏠 Home</a>
+      <a href="index.html" class="nav-tryon">🕶️ Try On</a>
+      <a href="gallery.html" class="nav-gallery">🖼️ Gallery</a>
+    </div>
+    <div class="user-section">
+      <div class="username">Welcome, User</div>
+      <button class="logout-button" onclick="logout()">Logout</button>
+    </div>
   </div>
 
-  <div class="buttons">
-    <button onclick="changeGlasses('rectangle.png')">Rectangle</button>
-    <button onclick="changeGlasses('rectangle2.png')">Rectangle 2</button>
-    <button onclick="changeGlasses('retangle1.png')">Retangle 1</button>
-    <button onclick="changeGlasses('round_glasses.png')">Round</button>
+  <!-- Main Content -->
+  <div class="main-content">
+    <button id="top-edit-btn" onclick="toggleEditMode()" style="display: none;">✏️ Edit</button>
+    <h1>🕶️ Virtual Glass Try-On</h1>
+
+    <label class="upload-label">
+      <input type="file" id="upload" hidden />
+      <span>📁 Upload Image</span>
+    </label>
+
     
-  </div>
+    <div class="canvas-wrapper">
+      <canvas id="canvas"></canvas>
+    </div>
 
-  <div class="bottom-buttons">
-    <button onclick="downloadImage()">⬇️ Download Image</button>
+    <div class="buttons">
+      <select id="glassesSelect" onchange="if(this.value) changeGlasses(this.value)">
+        <option value="" >👓 Select Glasses</option>
+        <option value="none">🚫 Remove Glasses</option>
+        <option value="rectangle.png">Rectangle</option>
+        <option value="rectangle2.png">Rectangle 2</option>
+        <option value="retangle1.png">Retangle 1</option>
+        <option value="round_glasses.png">Round</option>
+      </select>
+
+      <select id="hatsSelect" onchange="if(this.value !== '') changeHat(this.value)">
+        <option value="">🎩 Select Hat</option>
+        <option value="none">🚫 Remove Hat</option>
+        <option value="hat2.png">Santa1</option>
+        <option value="hat3.png">Santa2</option>
+        <option value="hat4.png">Santa3</option>
+        <option value="hat5.png">Santa4</option>
+      </select>
+      
+    </div>
+
+    <div class="bottom-buttons">
+      <button onclick="downloadImage()">⬇️ Download Image</button>
+      <button id="saveBtn">Save to Gallery</button>
+    </div>
   </div>
 
   <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
-  <script defer src="script.js"></script>
+  <script defer src="assets/js/script.js"></script>
   <script>
-    // Show edit button after image is uploaded
-    document.getElementById("upload").addEventListener("change", function () {
-      document.getElementById("top-edit-btn").style.display = "inline-block";
-      document.getElementById("edit-btn").style.display = "inline-block"; // If you want both visible
+    document.addEventListener('DOMContentLoaded', () => {
+      const userSection = document.querySelector('.user-section');
+      const usernameDisplay = userSection.querySelector('.username');
+      const logoutBtn = userSection.querySelector('.logout-button');
+
+      const loggedInUser = localStorage.getItem('loggedInUser');
+
+      if (loggedInUser) {
+        usernameDisplay.textContent = `Welcome, ${loggedInUser}`;
+        logoutBtn.style.display = 'inline-block';
+      } else {
+        usernameDisplay.textContent = 'Welcome, Guest';
+        logoutBtn.style.display = 'none';
+      }
     });
+
+    function logout() {
+      localStorage.removeItem('loggedInUser');
+      window.location.href = 'home.html'; // or login.html if you prefer.
+    }
   </script>
 </body>
 </html>

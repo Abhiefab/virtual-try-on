@@ -1,0 +1,382 @@
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 18px;
+  background: #f7f8fc;
+  color: #fff;
+  display: flex;
+}
+.welcome-container {
+  max-width: 700px;
+  margin: 100px auto;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.6);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  backdrop-filter: blur(8px);
+}
+
+
+.welcome-container h1 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.welcome-container .highlight {
+  color: #0078ff;
+}
+
+.welcome-container p {
+  font-size: 1.1rem;
+  margin-bottom: 30px;
+  color: #555;
+}
+
+.cta-button {
+  display: inline-block;
+  background: #0078ff;
+  color: #fff;
+  padding: 14px 28px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  background: #005ec4;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  height: 100vh;
+  padding: 20px;
+  box-sizing: border-box;
+  position: fixed;
+  left: 0;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.05);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #333;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background 0.3s, color 0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  background: #e3eaff;
+  font-weight: bold;
+}
+
+.user-section {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.username {
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+.logout-button {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  color: white;
+  padding: 10px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+.logout-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Main Content */
+main {
+  flex: 1;
+  padding: 40px 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 220px;
+}
+
+/* Auth Container & Wrapper Modernized */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-wrapper {
+  width: 400px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 25px;
+  padding: 30px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Form Header */
+.form-header h2 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #6a11cb, #2575fc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+
+.form-header p {
+  font-size: 14px;
+  color: #444;
+}
+
+/* Input Group */
+.input-group {
+  margin-top: 20px;
+  position: relative;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-bottom: 2px solid #333;
+  border-radius: 8px;
+  color: #000;
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s ease;
+}
+
+.input-group input:focus {
+  border-bottom-color: #2575fc;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.input-group label {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  font-size: 12px;
+  color: #333;
+  background: #f7f8fc;
+  padding: 0 5px;
+}
+
+/* Auth Button - Modern Gradient Style */
+.auth-btn {
+  margin-top: 30px;
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #1c1c1c, #000);
+  color: #fff;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.auth-btn::before,
+.auth-btn::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  transition: all 0.3s ease;
+}
+
+.auth-btn::before {
+  width: 100%;
+  height: 100%;
+  background: #1c1c1c;
+  border-radius: 30px;
+}
+
+.auth-btn::after {
+  bottom: 0;
+  right: 0;
+  width: 35px;
+  height: 35px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border-radius: 50px;
+  transform: translate(10px, 10px);
+}
+
+.auth-btn:hover::before {
+  transform: translate(5%, 20%);
+  width: 110%;
+  height: 110%;
+}
+
+.auth-btn:hover::after {
+  border-radius: 30px;
+  transform: translate(0, 0);
+  width: 100%;
+  height: 100%;
+}
+
+.auth-btn:active::after {
+  transition: 0s;
+  transform: translate(0, 5%);
+}
+
+/* Footer Links */
+.form-footer {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.form-footer a {
+  color: #000;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.form-footer a:hover {
+  color: #2575fc;
+}
+
+/* Welcome Section */
+#welcomeSection {
+  text-align: center;
+  color: #333;
+}
+
+/* Hidden Elements */
+.hidden {
+  display: none !important;
+}
+
+/* Canvas Wrapper Enhancement */
+.canvas-wrapper {
+  margin: 20px auto;
+  width: 90%;
+  max-width: 740px;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 30px;
+  border-radius: 25px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(30px);
+  display: flex;
+  justify-content: center;
+}
+
+canvas {
+  max-width: 100%;
+  border-radius: 16px;
+  border: 2px solid #333;
+}
+
+/* Button Group for Actions */
+.buttons,
+.bottom-buttons {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 26px;
+  justify-content: center;
+}
+
+/* Modern Animated Buttons */
+button {
+  
+  font-size: 16px;
+  background: transparent;
+  position: relative;
+  color: #ffffff;
+  cursor: pointer;
+  z-index: 1;
+  padding: 12px 28px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transition: all 0.4s ease;
+}
+
+button::before,
+button::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: -1;
+  transition: all 0.4s ease;
+}
+
+button::before {
+  width: 100%;
+  height: 100%;
+  background: #1c1c1c;
+  border-radius: 12px;
+}
+
+button::after {
+  transform: translate(10px, 10px);
+  width: 35px;
+  height: 35px;
+  background: #ffffff10;
+  backdrop-filter: blur(8px);
+  border-radius: 50px;
+}
+
+button:hover::before {
+  transform: translate(5%, 20%);
+  width: 110%;
+  height: 110%;
+}
+
+button:hover::after {
+  border-radius: 12px;
+  transform: translate(0, 0);
+  width: 100%;
+  height: 100%;
+}
+
+button:active::after {
+  transition: 0s;
+  transform: translate(0, 5%);
+}
