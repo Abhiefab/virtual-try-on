@@ -25,3 +25,5 @@ Coming soon — add some screenshots or a screen recording here!
 
 ## 📂 Folder Structure (Simplified)
 
+ assets/ ├── css/ ├── js/ 📁 auth/ 📁 gallery/ 📁 hats/ ├── hat1.png, hat2.png, ... 📄 home.html 📄 signup.html 📄 gallery.html
+
